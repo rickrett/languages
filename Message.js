@@ -1,2 +1,2 @@
 var Message = "This is a message.";
-console.log Message;
+console.log Message+" End of message.";
