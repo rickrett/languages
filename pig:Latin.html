@@ -1,0 +1,55 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<style> 
+
+.center {
+    text-align: center;
+    color: green;
+}
+
+.center_black {
+    text-align: center;
+    color: black;
+}
+h3.font {
+	font-style: script;
+	font: 'Courier New';
+}
+p.error {
+	font-style: normal;
+}
+p.pigerror {
+	font-style: normal;
+}
+
+</style>
+
+  <meta charset="UTF-8">
+  	<title>JavaScript Example</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="nameSwapper.js"></script>
+	<script src="pigLatin.js"></script>
+</head>
+
+<body>
+
+<form>
+<input type="text" name="value" Text="test" id="testfill">
+<input type="button" value="Submit" id="testbutton">
+<h2 class="center" id="username"></h2>
+<p class="error"></p>
+<p></p>
+<textarea rows="4" cols="25"  id="normalstring"></textarea>
+<!--<input type="text" name="value" Text="test" id="normalstring">-->
+<input type="button" value="Submit" id="PGtestbutton">
+<h3 class="font" id="pigstring"></h3>
+<p class="pigerror"></p>
+</form>
+
+
+
+</body>
+</html>
