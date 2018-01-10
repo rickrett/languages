@@ -18,10 +18,6 @@ function bothPigRovarSentence(allWords) {
 	};	
 	var finalBothSentence = bothArray.join(" ");
 	$('#bothstring').html(finalBothSentence);
-
-	var finalSentence = sentenceArray.join(" ");
-//	$('h3.font').html(finalSentence);
-$('#pigstring').html("Piglatin: "+finalSentence);
 }
 
 
