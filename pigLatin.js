@@ -2,23 +2,76 @@
 
 $(document).ready(function() {
 	$('#PGtestbutton').click(function() {
-	pigLatin($('#normalstring').val())
+	pigLatin($('#normalstring').val());
+	rovarSentence($('#normalstring').val());
+	bothPigRovarSentence($('#normalstring').val());
 	});
 });
+
+function bothPigRovarSentence(allWords) {
+	let wordArray = allWords.split(" ");
+	let bothArray = [];
+	for (index = 0; index < wordArray.length; ++index) {
+		var rovarWord = Rovarspraket(wordArray[index]);
+		var bothWord = pigConvert(rovarWord);
+		bothArray.push(bothWord);	
+	};	
+	var finalBothSentence = bothArray.join(" ");
+	$('#bothstring').html(finalBothSentence);
+
+	var finalSentence = sentenceArray.join(" ");
+//	$('h3.font').html(finalSentence);
+$('#pigstring').html("Piglatin: "+finalSentence);
+}
+
+
+function rovarSentence(allWords) {
+	console.log(allWords);
+	let wordArray = allWords.split(" ");
+	let rovarArray = [];
+	for (index = 0; index < wordArray.length; ++index) {
+		var rovarWord = Rovarspraket(wordArray[index]);
+		rovarArray.push(rovarWord);	
+	};	
+	var finalRovarSentence = rovarArray.join(" ");
+	$('#rovarstring').html(finalRovarSentence);
+}
+
 
 function pigLatin(allWords) {
 	let wordArray = allWords.split(" ");
 	let sentenceArray = [];
+	let rovarArray = [];
 	var index;
 	for (index = 0; index < wordArray.length; ++index) {
 		var newWord = pigConvert(wordArray[index]);
-	//	var updatedWord = replacePunctuation(wordArray[index],newWord);
-	//	sentenceArray.push(updatedWord);
-		sentenceArray.push(newWord);
+		sentenceArray.push(newWord);		
 	};
 	var finalSentence = sentenceArray.join(" ");
-	$('h3.font').html(finalSentence);
+//	$('h3.font').html(finalSentence);
+$('#pigstring').html(finalSentence);
 }
+
+function Rovarspraket (wordString) {
+/*
+Rövarspråket:
+The principle is easy enough. Every consonant (spelling matters, not pronunciation) is doubled, and an o is inserted in-between. Vowels are left intact. It is quite possible to render the Rövarspråket version of an English word as well as a Swedish, e.g.:
+
+sos-tot-u-bob-bob-o-ror-non or sostotubobboborornon
+*/
+var nonVowel = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ';
+var usedString = '';
+var re = new RegExp('',"gi");
+for (i=0;i < wordString.length;i++){
+	if ((nonVowel.indexOf(wordString[i]) != -1) && (usedString.indexOf(wordString[i]) == -1)) {
+        usedString = usedString+wordString[i];
+        re = new RegExp(wordString[i],'gi');
+		wordString = wordString.replace(re, wordString[i]+'o'+wordString[i]);
+    }
+}
+return wordString;
+}
+
 	
 function pigConvert (wordString) {
 	/*
