@@ -4,10 +4,30 @@ $(document).ready(function() {
 	$('#PGtestbutton').click(function() {
 	pigLatin($('#normalstring').val());
 	rovarSentence($('#normalstring').val());
-	bothPigRovarSentence($('#normalstring').val());
+//	bothPigRovarSentence($('#normalstring').val());
+	bothPigHybridSentence($('#normalstring').val());	
 	});
+
 });
 
+String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
+function bothPigHybridSentence(allWords) {
+	let wordArray = allWords.split(" ");
+	let bothArray = [];
+	for (index = 0; index < wordArray.length; ++index) {
+		var rovarWord = pigConvert(wordArray[index]);
+		var bothWord = RovHybrid(rovarWord);
+
+		bothArray.push(bothWord);	
+	};	
+	var finalBothSentence = bothArray.join(" ");
+	$('#bothstring').html(finalBothSentence);
+}
+
+/*
 function bothPigRovarSentence(allWords) {
 	let wordArray = allWords.split(" ");
 	let bothArray = [];
@@ -19,18 +39,24 @@ function bothPigRovarSentence(allWords) {
 	var finalBothSentence = bothArray.join(" ");
 	$('#bothstring').html(finalBothSentence);
 }
-
+*/
 
 function rovarSentence(allWords) {
 	console.log(allWords);
 	let wordArray = allWords.split(" ");
 	let rovarArray = [];
+	let hybridArray = [];
 	for (index = 0; index < wordArray.length; ++index) {
 		var rovarWord = Rovarspraket(wordArray[index]);
-		rovarArray.push(rovarWord);	
+		rovarArray.push(rovarWord);
+		var hybridWord = RovHybrid(wordArray[index]);
+		hybridArray.push(hybridWord);		
 	};	
 	var finalRovarSentence = rovarArray.join(" ");
 	$('#rovarstring').html(finalRovarSentence);
+
+	var finalHybridSentence = hybridArray.join(" ");
+	$('#hybridstring').html(finalHybridSentence);	
 }
 
 
@@ -47,6 +73,26 @@ function pigLatin(allWords) {
 //	$('h3.font').html(finalSentence);
 $('#pigstring').html(finalSentence);
 }
+//-----------
+
+function RovHybrid (wordString) {
+	
+// Should convert final word to titlecase.
+var nonVowel = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ';
+var vowels = 'aeiou'; // use Modulo 5(%5) on this. We could add symbols too, then change Modulo for the number
+var usedString = [];
+var vowelCount = 0;
+var re = new RegExp('',"gi");
+for (i=0;i < wordString.length;i++){
+	if ((nonVowel.indexOf(wordString[i]) != -1) && (usedString.indexOf(wordString[i]) == -1)) {
+        usedString = usedString+wordString[i];
+        re = new RegExp(wordString[i],'gi');
+		wordString = wordString.replace(re, wordString[i]+vowels[((vowelCount)%5)]+wordString[i]);
+		vowelCount+=1;
+    }
+}
+return wordString;	
+}
 
 function Rovarspraket (wordString) {
 /*
@@ -56,6 +102,7 @@ The principle is easy enough. Every consonant (spelling matters, not pronunciati
 sos-tot-u-bob-bob-o-ror-non or sostotubobboborornon
 */
 var nonVowel = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ';
+var vowels = 'aeiouaeiouaeiouaeiouaeiouaeiouaeiouaeiou';
 var usedString = '';
 var re = new RegExp('',"gi");
 for (i=0;i < wordString.length;i++){

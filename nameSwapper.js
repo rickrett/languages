@@ -24,3 +24,14 @@ function myFunction (nameString) {
 		$('h2.center').html('');
 	}
 }
+
+
+/*
+Probably a better way to do this
+
+var re = /(\w+)\s(\w+)/;
+var str = 'John Smith';
+var newstr = str.replace(re, '$2, $1');
+console.log(newstr);  // Smith, John
+
+*/
